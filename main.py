@@ -145,24 +145,10 @@ def createHeatMapOfHousesPrice():
 
             if kvPris > maxKP:
                 maxKP = kvPris
-            
-
-            # heatLat.append(float(houses[house]['lat']))
-            # heatLng.append(float(houses[house]['lng']))
-
-            # if price >= 3000000 and kvadrat >= 50:
             klasse = int(kvPris / 20000)
             if klasse <= 3:
                 kvadPris[str(klasse)]['lat'].append(float(houses[house]['lat']))
                 kvadPris[str(klasse)]['lng'].append(float(houses[house]['lng']))
-
-            
-            # if kvPris >= 40000:
-                # highLat.append(float(houses[house]['lat']))
-                # highLng.append(float(houses[house]['lng']))
-            # else:
-                # heatLat.append(float(houses[house]['lat']))
-                # heatLng.append(float(houses[house]['lng']))
         except ValueError:
             print('error parsing')
     gmap = gmplot.GoogleMapPlotter(59.9019315,10.764459, 11.17)
@@ -173,16 +159,6 @@ def createHeatMapOfHousesPrice():
         grd = [(colorInput, 255 - colorInput, 0, 0), (colorInput, 255 - colorInput, 0, 1)]
         gmap.heatmap(kvadPris[klass]['lat'],kvadPris[klass]['lng'], radius=50, gradient=grd)
 
-    # for i in range(0, 100):
-        # colorInput = interpolateColor(kvadratPris[i], maxKP, minKP)
-        # print(colorInput)
-        # grd = [(interpolateColor(kvadratPris[i], maxKP, minKP), 0, 0, 0), (interpolateColor(kvadratPris[i], maxKP, minKP), 0, 0, 1)]
-        # gmap.heatmap([heatLat[i]],[heatLng[i]], radius=30, gradient=grd)
-    #gmap.plot(latitudes, longitudes, 'cornflowerblue', edge_width=10)
-    #gmap.scatter(more_lats, more_lngs, '#3B0B39', size=40, marker=False)
-    #gmap.scatter(marker_lats, marker_lngs, 'k', marker=True)
-    # gmap.heatmap(heatLat, heatLng, radius=30, gradient=[(0,255, 0, 0), (0, 255, 0, 1)])
-    # gmap.heatmap(highLat, highLng, radius=30, gradient=[(255, 0, 0, 0), (255,0,0,1)])
     gmap.draw("finnHousesPrices.html")
 
 def distancePriceGraph():
@@ -192,7 +168,6 @@ def distancePriceGraph():
     test = {}
     counter = 0
     for house in houses:
-    #    if isinstance(houses[house]['price'].replace(',-',''), int):
         try:
             tmpx = (int(houses[house]['price'].replace(',-','')))
             tmpy = (int(houses[house]['traveltime'].replace(' mins', '')))
@@ -209,10 +184,7 @@ def distancePriceGraph():
 
     od = collections.OrderedDict(sorted(test.items()))
 
-    #print(od)
     plt.plot(relation)
-    #plt.hist(od)
-    #plt.bar(od.keys(), od.values(), 100, color='blue')
     plt.ylabel('Travel time')
     plt.xlabel('Price')
     plt.show()
@@ -225,18 +197,9 @@ def simpleHeatMap():
         heatLat.append(float(houses[house]['lat']))
         heatLng.append(float(houses[house]['lng']))
     gmap = gmplot.GoogleMapPlotter(59.9019315,10.764459, 11.17)
-    #gmap.plot(latitudes, longitudes, 'cornflowerblue', edge_width=10)
-    #gmap.scatter(more_lats, more_lngs, '#3B0B39', size=40, marker=False)
-    #gmap.scatter(marker_lats, marker_lngs, 'k', marker=True)
     gmap.heatmap(heatLat, heatLng, radius=10)
     gmap.draw("mymap.html")
-# with open('data.json','r') as infile:
-    # houses = json.load(infile)
 getNewData()
-#createHeatMapOfHouses()
-#createHeatMapOfHousesPrice()
-#distancePriceGraph()
-#print(json.dumps(houses, sort_keys=True, indent=4))
 
 
 
